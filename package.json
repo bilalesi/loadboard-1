@@ -6,15 +6,26 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.26.0",
+    "convert-units": "^2.3.4",
+    "crypto-browserify": "^3.12.0",
+    "date-fns": "^2.28.0",
+    "framer-motion": "^6.2.6",
+    "mongoose": "^6.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-loading-icons": "^1.0.8",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "react-table": "^7.7.0",
+    "uWebSockets.js": "uNetworking/uWebSockets.js#v20.3.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -34,5 +45,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "7.16.12",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.3",
+    "react-app-rewired": "^2.1.11"
+  },
+  "browser": {
+    "crypto": false,
+    "stream": false
   }
 }

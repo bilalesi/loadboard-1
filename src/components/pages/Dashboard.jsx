@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 //import truckPicture from '../../assets/images/truck.jpg';
 import LoadDataService from "../../services/loads";
 import { Puff } from 'react-loading-icons';
 import {Helmet} from "react-helmet";
+import { SocketContext } from '../../context/socket'
 import { motion } from "framer-motion";
 import {
   DataCardBlock,
@@ -18,39 +19,66 @@ function Dashboard() {
   //
   const [siteTabTitle, setSiteTabTitle] = useState('Dashboard - Loadboard');
   //
-  const [loads, setVisibleLoads] = useState('');
-  const [currentIndex, setCurrentLoadIndex] = useState(-1);
-  const [isTableLoading, setIsTableLoading] = useState(false);
+  const [dashboardTable, setDashboardTableData] = useState({table:{},data:[{}],loading:true});
   const controller = new AbortController();
 
-  useEffect(() => {
+  const socket = useContext(SocketContext);
 
-    setIsTableLoading(true);
-    if (loads.length < 1) {
-      retrieveLoads();
-    }
-    return () => {controller.abort();}
+  //
+  //
+  const handleLeaveChannel = useCallback((feed) => {
+    socket.off("initialize", handleTableInitialize);
+    socket.emit("unsubscribeFeed",feed);
   }, []);
-  const retrieveLoads = async () => {
-    return LoadDataService.getAll({'report':null,'filters':{sort:"id,desc"},controller:controller})
+  //
+  //
+  const handleJoinChannel = useCallback((feed) => {
+    socket.emit("subscribeFeed", {...feed, "initialize": true});
+    socket.on("initialize", handleTableInitialize);
+  }, []);
+  const handleTableInitialize = useCallback((tableData) => {
+    console.log("initialize socketio table:");
+    var loadData = tableData.data;
+    var reportConfig = tableData.reports[0];
+    setDashboardTableData({table:reportConfig,data:loadData,loading:false});
+    console.log(tableData);
+    socket.on("update", handleTableUpdate);
+  }, []);
+  const handleTableUpdate = useCallback((tableData) => {
+    console.log("update socketio table:");
+    var loadData = tableData.data;
+    var reportConfig = tableData.reports[0];
+    setDashboardTableData({table:reportConfig,data:loadData,loading:false});
+  }, []);
+
+  useEffect(() => {
+    //debugger;
+    //retrievedashboardLoads();
+    handleJoinChannel({ report: 'Dashboard' });
+
+    return () => {
+      //axios
+      controller.abort();
+      //socketio
+      handleLeaveChannel({ report: 'Dashboard' });
+    }
+
+  }, []);
+  async function retrievedashboardLoads() {
+    return await LoadDataService.getAll({'report':'Dashboard', controller:controller, filters: { 'limit': 200 } })
       .then(response => {
-        console.log(response.data);
-        var loadData = response;
-        setVisibleLoads(loadData);
-        setIsTableLoading(false);
+        //debugger;
+        //console.log(response.data);
+        var loadData = response.data;
+        var reportConfig = response.reports[0];
+        setDashboardTableData({table:reportConfig,data:loadData,loading:false});
+
+        //debugger;
       })
       .catch(e => {
         console.log(e);
       });
-  };
-  const refreshList = () => {
-    retrieveLoads();
-    setActiveLoad(null);
-    setCurrentLoadIndex(-1);
-  };
-  const setActiveLoad = (load, index) => {
-    setCurrentLoadIndex(index);
-  };
+    };
   //
   //
   //
@@ -103,60 +131,7 @@ function Dashboard() {
                     CounterLabel='Test Card'
                   />
                 </div>
-                {/* table */}
-                <div className="block block-rounded">
-                  <div className="block-header block-header-default">
-                    <h3 className="block-title">All Active Bid Board Loads</h3>
-                  </div>
-                  <div className="block-content">
-                    <div className="table-responsive">
-                      <table className="table table-borderless table-striped table-vcenter">
-                        <thead>
-                          <tr>
-                            <th className="text-center">Load OID</th>
-                            <th className="d-md-table-cell">First Item Weight</th>
-                            <th className="d-md-table-cell">First Event</th>
-                            <th className="d-sm-table-cell text-center">Is Active on Bidboard</th>
-                            <th>Special Instructions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        {isTableLoading ? (
-                            <tr>
-                              <td colSpan='5'className="text-center pt-4 pb-4">
-                                <Puff stroke="#0d6efd" strokeOpacity={.645} speed={1} />
-                                <span className="d-block">Loading...</span>
-                              </td>
-                            </tr>
-                          ) : (
-                          loads.data && loads.data.map((load, index) => (
-                              index < 300 &&
-                              <tr
-                                className={
-                                  (index === currentIndex ? "active" : "")
-                                }
-                                //onClick={() => setActiveTutorial(tutorial, index)}
-                                key={index}
-                              >
-                                <td><a href={'/load?oid=' + load.oid + '&ref=loadboard'}>{load.oid}</a></td>
-                                <td>{load.data.bidData.Items[0].Weight} {load.data.bidData.Items[0].WeightUOM}</td>
-                                <td className="d-md-table-cell fs-sm">{load.data.bidData.Plan[0].Type}: {load.data.bidData.Plan[0].Location.City}, {load.data.bidData.Plan[0].Location.State} {load.data.bidData.Plan[0].Location.Country}</td>
-                                <td className="d-sm-table-cell text-center fs-sm">{load.data.bidData.isBidActive == true ? <span className='badge bg-success'>Available</span> :<span className='badge bg-danger'>Unavailable</span>}</td>
-                                <td>{load.data.bidData.SpecialInstructions}</td>
-                              </tr>
-                            ))
-                          )
-                        }
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                {/*--fill me --*/}
-                {/*<TableBlock>
-                  <TableHeaders columns={[]} columnsToHide= {[]} />
-                  <TableRows  />
-                </TableBlock>*/}
+                <TableBlock data={dashboardTable.data} tableconfig={dashboardTable.table} loading={dashboardTable.loading} />
               </div>
             </div>
           </div>

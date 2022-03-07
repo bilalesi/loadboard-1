@@ -13,7 +13,9 @@ const getAll = async ({report,filters,controller}) => {
         console.log('blah');
         appendUrl += '&' + filterKey + "=" + filter;
     }
-    return await axios.get("https://load-board-api-9xx3g.ondigitalocean.app/getloads" + appendUrl, {
+    // process.env.DEV_AXIOS_URL
+    //             PROD_AXIOS_URL
+    return await axios.get(process.env.REACT_APP_PROD_AXIOS_URL + appendUrl, {
         signal: controller.signal
     }).then(res => res.data);
         /*try {

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {SocketContext, socket} from './context/socket';
 import './index.css';
 import {
   Dashboard,
@@ -20,8 +21,9 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <Router>
-    <Navigation />
-    <Header />
+    <SocketContext.Provider value={socket}>
+      <Navigation />
+      <Header />
       <Routes>
           <Route path='*' element={<Error_404 />} />
           <Route path="/" element={<Dashboard />} />
@@ -31,6 +33,7 @@ ReactDOM.render(
           <Route path="/component-list" element={<ComponentListPreview />} />
           <Route path="/load" element={<ViewLoad />} />
       </Routes>
+    </SocketContext.Provider>
   </Router>,
 
   document.body.querySelector("main")

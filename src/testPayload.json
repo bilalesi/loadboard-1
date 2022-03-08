@@ -1,0 +1,1248 @@
+{
+    "table": {
+        "_id": "62192c32c38e885c8193a654",
+        "table": {
+            "col": [
+                {
+                    "Header": "ID",
+                    "accessor": "col1",
+                    "path": "doc._id",
+                    "isVisible": false
+                },
+                {
+                    "Header": "Load Number",
+                    "accessor": "col2",
+                    "path": "doc.data.bidData.loadNumber",
+                    "CellProps": {
+                        "className": "d-sm-table-cell fs-sm"
+                    }
+                },
+                {
+                    "Header": "Item Weight",
+                    "accessor": "col3",
+                    "path": [
+                        "doc.data.bidData.Items[0].Weight",
+                        "doc.data.bidData.Items[0].WeightUOM"
+                    ],
+                    "HeaderProps": {
+                        "className": "text-center"
+                    },
+                    "CellProps": {
+                        "className": "d-sm-table-cell text-center fs-sm"
+                    }
+                },
+                {
+                    "Header": "Pickup Date",
+                    "accessor": "col4",
+                    "path": "doc.data.bidData.Plan[0].PlannedDate.Begin",
+                    "HeaderProps": {
+                        "className": "text-center"
+                    },
+                    "CellProps": {
+                        "className": "d-sm-table-cell text-center fs-sm"
+                    }
+                },
+                {
+                    "Header": "Last Drop Contact",
+                    "accessor": "col5",
+                    "path": [
+                        "doc.data.bidData.LastDropContact.Contact.Name",
+                        "doc.data.bidData.LastDropContact.Contact.Phone",
+                        "doc.data.bidData.LastDropContact.Contact.Email"
+                    ],
+                    "HeaderProps": {
+                        "className": "text-center"
+                    },
+                    "CellProps": {
+                        "className": "d-sm-table-cell text-center fs-sm"
+                    }
+                },
+                {
+                    "Header": "Bidboard Status",
+                    "accessor": "col6",
+                    "path": "doc.data.bidData.isBidActive",
+                    "width": 60,
+                    "HeaderProps": {
+                        "className": "text-center"
+                    },
+                    "CellProps": {
+                        "className": "d-sm-table-cell text-center fs-sm"
+                    }
+                }
+            ],
+            "query": {
+                "stops": ">1",
+                "domain": "t-insight",
+                "sort": "oid,desc"
+            }
+        },
+        "name": "Dashboard"
+    },
+    "data": [
+        {
+            "col1": "62193550338149d41cb4c53a",
+            "col2": "44825584L",
+            "col3": [
+                44640,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "SCOTT NODINE",
+                "850-433-8801",
+                "snodine@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "62193507338149d41cb4c536",
+            "col2": "44825576L",
+            "col3": [
+                28000,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "CASEY GULLAGE",
+                "802-660-1995",
+                "cgullage@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "62193507338149d41cb4c537",
+            "col2": "44825567L",
+            "col3": [
+                4440,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "BRIAN ZWEEGMAN",
+                "406-245-8710",
+                "bzweegma@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "62193507338149d41cb4c538",
+            "col2": "44825562L",
+            "col3": [
+                1100,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": null,
+            "col6": true
+        },
+        {
+            "col1": "62193507338149d41cb4c535",
+            "col2": "44825551L",
+            "col3": [
+                7000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "BRIAN ZWEEGMAN",
+                "406-245-8710",
+                "bzweegma@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "6219332e4885b55214b321e2",
+            "col2": "44825545L",
+            "col3": [
+                24000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "LARRY TOMAICH",
+                "843-879-0393",
+                "ltomaich1@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "621932a24885b55214b321e0",
+            "col2": "44825540L",
+            "col3": [
+                31145,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "JAMES WARREN",
+                "623-869-0100",
+                "jwarren@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "621932a24885b55214b321df",
+            "col2": "44825534L",
+            "col3": [
+                16500,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "MARK BECK",
+                "801-359-4220",
+                "mbeck2@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "621932a24885b55214b321e1",
+            "col2": "44825529L",
+            "col3": [
+                31589,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "JAMES WARREN",
+                "623-869-0100",
+                "jwarren@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "621930bdc80300ed9cb2f6e4",
+            "col2": "44825508L",
+            "col3": [
+                16500,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": null,
+            "col6": true
+        },
+        {
+            "col1": "62192ef612883a2952d848d6",
+            "col2": "44825483L",
+            "col3": [
+                11000,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "VIRGINIA RAMALHO",
+                "806-372-9900",
+                "VRAMALHO@UR.COM"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "62192eb312883a2952d848d4",
+            "col2": "44825474L",
+            "col3": [
+                16500,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "MARK BECK",
+                "801-359-4220",
+                "mbeck2@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "62192eb312883a2952d848d5",
+            "col2": "44825471L",
+            "col3": [
+                15300,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "VIRGINIA RAMALHO",
+                "806-372-9900",
+                "VRAMALHO@UR.COM"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "62192cfdcc382ad353c33fe5",
+            "col2": "44825385L",
+            "col3": [
+                28000,
+                "lb"
+            ],
+            "col4": "2022-03-01T13:00:00.000Z",
+            "col5": [
+                "JAMES WARREN",
+                "623-869-0100",
+                "jwarren@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "62192ad9df507e49c52d2619",
+            "col2": "44825361L",
+            "col3": [
+                4200,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "ERIC BAEBLER",
+                "925-252-2400",
+                "ebaebler@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "621929561be1f13a0825a45e",
+            "col2": "44825333L",
+            "col3": [
+                13000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "TODD BARGER",
+                "904-292-4883",
+                "tbarger@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "621929181be1f13a0825a45d",
+            "col2": "44825328L",
+            "col3": [
+                29500,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "WILLIAM KENNELLY ULL",
+                "503-775-7211",
+                "wkennellyu@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "621929181be1f13a0825a45c",
+            "col2": "44825323L",
+            "col3": [
+                10677,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "RALPH MILEY",
+                "210-494-5288",
+                "RMILEY@UR.COM"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "62192740ff3bf6098b629fc5",
+            "col2": "44825298L",
+            "col3": [
+                13000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "TODD BARGER",
+                "904-292-4883",
+                "tbarger@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62192740ff3bf6098b629fc4",
+            "col2": "44825293L",
+            "col3": [
+                21190,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "JACOB GUZMAN",
+                "760-328-6573",
+                "jguzman@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621926bcff3bf6098b629fc3",
+            "col2": "44825269L",
+            "col3": [
+                10800,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "MICHAEL KONKEL",
+                "262-207-5100",
+                "mkonkel@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621924dccaaa727fd2c85250",
+            "col2": "44825255L",
+            "col3": [
+                20000,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "OLEN HELMICK II II",
+                "804-608-5502",
+                "ohelmick@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621924dccaaa727fd2c8524f",
+            "col2": "44825254L",
+            "col3": [
+                3500,
+                "lb"
+            ],
+            "col4": "2022-02-28T12:00:00.000Z",
+            "col5": [
+                "SCOTT SELBY",
+                "928-526-2823",
+                "sselby@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621923a9d3ef465f10702688",
+            "col2": "44825233L",
+            "col3": [
+                17300,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "BRYAN HILDEBRAND",
+                "303-576-3500",
+                "bhildebran@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621921b29ba2bd84549df58a",
+            "col2": "44825186L",
+            "col3": [
+                48127,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "JACOB FLORA",
+                "503-224-2000",
+                "jflora@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621921b29ba2bd84549df589",
+            "col2": "44825177L",
+            "col3": [
+                6000,
+                "lb"
+            ],
+            "col4": "2022-02-25T18:00:00.000Z",
+            "col5": [
+                "BRETT SONDERGARD",
+                "336-308-3694",
+                "bsonderg@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621920333669dd34c70affef",
+            "col2": "44825166L",
+            "col3": [
+                7000,
+                "lb"
+            ],
+            "col4": "2022-02-28T12:00:00.000Z",
+            "col5": [
+                "JAMES WARREN",
+                "623-869-0100",
+                "jwarren@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62191f963669dd34c70affee",
+            "col2": "44825155L",
+            "col3": [
+                11000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": null,
+            "col6": false
+        },
+        {
+            "col1": "62191f963669dd34c70affed",
+            "col2": "44825145L",
+            "col3": [
+                7000,
+                "lb"
+            ],
+            "col4": "2022-02-28T12:00:00.000Z",
+            "col5": [
+                "NICHOLAS EMLEY",
+                "716-664-7368",
+                "nemley@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62191e19e9f6d48ab58c8dd4",
+            "col2": "44825132L",
+            "col3": [
+                23050,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "NICK VAN CZAK",
+                "203-330-4400",
+                "NVANCZAK@UR.COM"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "62191e19e9f6d48ab58c8dd3",
+            "col2": "44825129L",
+            "col3": [
+                7000,
+                "lb"
+            ],
+            "col4": "2022-02-28T12:00:00.000Z",
+            "col5": [
+                "JEREMIAH YEDDO",
+                "315-788-6001",
+                "jyeddo@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62191d98e9f6d48ab58c8dd1",
+            "col2": "44825092L",
+            "col3": [
+                100,
+                "lb"
+            ],
+            "col4": "2022-02-25T11:00:00.000Z",
+            "col5": [
+                "STEVEN SIFFORD",
+                "314-389-4030",
+                "ssifford@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62191d98e9f6d48ab58c8dd2",
+            "col2": "44825081L",
+            "col3": [
+                3900,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "WILLIAMS LYNCH",
+                "910-343-0031",
+                "wlynch1@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62191b3ba5d6a0ba27053309",
+            "col2": "44825073L",
+            "col3": [
+                3229,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "MARCEL BLANCHARD",
+                "210-623-1009",
+                "mblanchard@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62193550338149d41cb4c539",
+            "col2": "44825064L",
+            "col3": [
+                16000,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "MATTHEW GAAL",
+                "303-227-1300",
+                "mgaal@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "621918ff33282237cf191f40",
+            "col2": "44825032L",
+            "col3": [
+                45000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "JAMES WARREN",
+                "623-869-0100",
+                "jwarren@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621918ff33282237cf191f3e",
+            "col2": "44825029L",
+            "col3": [
+                45000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "JAMES WARREN",
+                "623-869-0100",
+                "jwarren@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621918ff33282237cf191f3f",
+            "col2": "44825028L",
+            "col3": [
+                16500,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "AARON CARLSON",
+                "701-293-9225",
+                "acarlson@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621917c2904f9c24630d58fa",
+            "col2": "44825023L",
+            "col3": [
+                45000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "JAMES WARREN",
+                "623-869-0100",
+                "jwarren@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "6219177f904f9c24630d58f9",
+            "col2": "44824991L",
+            "col3": [
+                8860,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "JAMES WARREN",
+                "623-869-0100",
+                "jwarren@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "6219177d904f9c24630d58f8",
+            "col2": "44824987L",
+            "col3": [
+                7900,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "CHRISTOPHER DUGAN",
+                "443-457-5252",
+                "cdugan@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621915fc357e4cfbb7a50903",
+            "col2": "44824965L",
+            "col3": [
+                13880,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "NICHOLAS BROOKS",
+                "805-922-2151",
+                "nbrooks1@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621915fc357e4cfbb7a50904",
+            "col2": "44824963L",
+            "col3": [
+                9000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "JASON HENDRY",
+                "314-705-3313",
+                null
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621914f4f0be2d6c14d6cdad",
+            "col2": "44824952L",
+            "col3": [
+                16000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "NATHAN WINDY",
+                "248-702-1881",
+                "nwindy@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621914f4f0be2d6c14d6cdac",
+            "col2": "44824951L",
+            "col3": [
+                9000,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": null,
+            "col6": false
+        },
+        {
+            "col1": "621914b0f0be2d6c14d6cdaa",
+            "col2": "44824945L",
+            "col3": [
+                29440,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "IAN ARMSTRONG",
+                "314-729-0903",
+                "IARMSTRONG@UR.COM"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "6219138bf7eea21e33ac7129",
+            "col2": "44824927L",
+            "col3": [
+                702,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "WILLIAMS LYNCH",
+                "910-343-0031",
+                "wlynch1@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62191344f7eea21e33ac7128",
+            "col2": "44824916L",
+            "col3": [
+                21190,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "DIANA HUGHES",
+                "512-335-5171",
+                "dhughes2@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62191344f7eea21e33ac7127",
+            "col2": "44824905L",
+            "col3": [
+                41000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "TYLER SWAINSTON",
+                "517-318-0718",
+                "tswainston@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621914b0f0be2d6c14d6cdab",
+            "col2": "44824892L",
+            "col3": [
+                2700,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "BRIAN ZWEEGMAN",
+                "406-245-8710",
+                "bzweegma@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62191344f7eea21e33ac7126",
+            "col2": "44824890L",
+            "col3": [
+                9250,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "MICHAEL LOWELL",
+                "419-874-3141",
+                "mlowell@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "6219116fcac531295a291d49",
+            "col2": "44824884L",
+            "col3": [
+                40000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "DAVID MULCAHY",
+                "303-287-1890",
+                "dmulcahy@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621910e7cac531295a291d47",
+            "col2": "44824873L",
+            "col3": [
+                20000,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "DAVID SYNNOTT",
+                "402-933-2555",
+                "dsynnott@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621910e7cac531295a291d48",
+            "col2": "44824868L",
+            "col3": [
+                3000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "DEREK EAGER",
+                "843-481-3528",
+                "deager@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621910e7cac531295a291d45",
+            "col2": "44824865L",
+            "col3": [
+                14780,
+                "lb"
+            ],
+            "col4": "2022-02-25T12:00:00.000Z",
+            "col5": [
+                "ERNEST MARTINEZ",
+                "830-606-7788",
+                "ermartinez@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621910e7cac531295a291d46",
+            "col2": "44824864L",
+            "col3": [
+                6560,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": null,
+            "col6": false
+        },
+        {
+            "col1": "62190f56c381be61824f779b",
+            "col2": "44824856L",
+            "col3": [
+                7390,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "TODD BARGER",
+                "904-260-8351",
+                "tbarger@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190f56c381be61824f779c",
+            "col2": "44824852L",
+            "col3": [
+                24000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "JOSEPH ESCOJIDO",
+                "903-596-7368",
+                "jescojid@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190edac381be61824f7797",
+            "col2": "44824845L",
+            "col3": [
+                19700,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "CALEB MORGAN",
+                "940-243-4949",
+                "cmorgan3@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190edac381be61824f7798",
+            "col2": "44824835L",
+            "col3": [
+                4000,
+                "lb"
+            ],
+            "col4": "2022-02-25T12:30:00.000Z",
+            "col5": [
+                "RICHARD WEICHMAN II",
+                "856-423-7820",
+                "rweichma@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190edac381be61824f7799",
+            "col2": "44824832L",
+            "col3": [
+                15979,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "JOHN LUNNEN",
+                "423-624-4000",
+                "jlunnen@ur.com"
+            ],
+            "col6": true
+        },
+        {
+            "col1": "62190edac381be61824f7796",
+            "col2": "44824829L",
+            "col3": [
+                9250,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "MICHAEL LOWELL",
+                "419-874-3141",
+                "mlowell@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190ed8c381be61824f7795",
+            "col2": "44824821L",
+            "col3": [
+                1104,
+                "lb"
+            ],
+            "col4": "2022-02-25T12:00:00.000Z",
+            "col5": null,
+            "col6": false
+        },
+        {
+            "col1": "62190edac381be61824f779a",
+            "col2": "44824815L",
+            "col3": [
+                12900,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "JAMES WARREN",
+                "623-869-0100",
+                "jwarren@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190d15809b83c139c8e81b",
+            "col2": "44824811L",
+            "col3": [
+                21000,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "JUSTIN SMALL",
+                "918-977-3700",
+                "jsmall2@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190d15809b83c139c8e81c",
+            "col2": "44824803L",
+            "col3": [
+                9665,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "DARREN HENDRIX",
+                "602-267-8800",
+                "dhendrix@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190d15809b83c139c8e81a",
+            "col2": "44824801L",
+            "col3": [
+                900,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "ALMA DURAN",
+                "432-250-6979",
+                "ADURAN@UR.COM"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190bd63fd20ebe03dd8e2e",
+            "col2": "44824790L",
+            "col3": [
+                46000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "STAN MCKINLEY",
+                "253-572-2150",
+                null
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190bd63fd20ebe03dd8e2f",
+            "col2": "44824784L",
+            "col3": [
+                22033,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "TOBY SARRADET",
+                "225-248-1331",
+                "tsarradet@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190bd63fd20ebe03dd8e2d",
+            "col2": "44824763L",
+            "col3": [
+                14800,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "KAREN PESSON",
+                "225-338-1049",
+                "kpesson@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190a5574a0497034b99e96",
+            "col2": "44824746L",
+            "col3": [
+                56400,
+                "lb"
+            ],
+            "col4": "2022-03-01T13:00:00.000Z",
+            "col5": [
+                "CHARLES TROUTTE",
+                "870-247-3555",
+                "ctroutte@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "62190a5574a0497034b99e95",
+            "col2": "44824737L",
+            "col3": [
+                4833,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": null,
+            "col6": false
+        },
+        {
+            "col1": "62190a5574a0497034b99e94",
+            "col2": "44824736L",
+            "col3": [
+                1300,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": null,
+            "col6": false
+        },
+        {
+            "col1": "6219084d5dc61dfeef1e8721",
+            "col2": "44824726L",
+            "col3": [
+                169,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": null,
+            "col6": true
+        },
+        {
+            "col1": "6219084d5dc61dfeef1e8722",
+            "col2": "44824723L",
+            "col3": [
+                10000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "LUKE DYAS",
+                "850-238-3622",
+                "ldyas@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621907f85dc61dfeef1e8720",
+            "col2": "44824686L",
+            "col3": [
+                14000,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "EDWARD SOYARS",
+                "509-546-2100",
+                "esoyars@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621905b1c07b3dfdb8aa0720",
+            "col2": "44824596L",
+            "col3": [
+                3200,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "KYLE SOBOTKA",
+                "602-267-3898",
+                "ksobotka@ur.com"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621905b1c07b3dfdb8aa0721",
+            "col2": "44824577L",
+            "col3": [
+                5200,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "MICHAEL CHANEY",
+                "703-327-2800",
+                "MCHANEY@UR.COM"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621903b4bf4307b40a9ad413",
+            "col2": "44824550L",
+            "col3": [
+                18188,
+                "lb"
+            ],
+            "col4": "2022-02-25T13:00:00.000Z",
+            "col5": [
+                "JEFF WICKHAM",
+                "402-895-7800",
+                "JWICKHAM@UR.COM"
+            ],
+            "col6": false
+        },
+        {
+            "col1": "621902170b3cfdda18fac088",
+            "col2": "44824539L",
+            "col3": [
+                3500,
+                "lb"
+            ],
+            "col4": "2022-02-28T13:00:00.000Z",
+            "col5": [
+                "PAUL JOHNSON",
+                "225-744-0101",
+                "pjohnson1@ur.com"
+            ],
+            "col6": false
+        }
+    ],
+    "loading": false
+}

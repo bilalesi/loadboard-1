@@ -131,7 +131,9 @@ function Dashboard() {
                     CounterLabel='Test Card'
                   />
                 </div>
+                {dashboardTable.data && 
                 <TableBlock data={dashboardTable.data} tableconfig={dashboardTable.table} loading={dashboardTable.loading} />
+                }
               </div>
             </div>
           </div>

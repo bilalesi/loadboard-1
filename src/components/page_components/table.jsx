@@ -25,6 +25,7 @@ function Container({ children, title, tableconfig, data, loading }) {
         }, []); */
 
         var tableColumns = tableconfig.table.col.map(function(column){
+
             //debugger;
             if ( column.path.indexOf("isBidActive") > -1 )
             {
@@ -117,7 +118,8 @@ function Container({ children, title, tableconfig, data, loading }) {
             return column;
         });
 
-        var columns = useMemo( () => tableColumns, tableColumns);
+        var columns = useMemo( () => tableColumns, [data]);
+        
         const tableInstance = useTable({ columns, data });
         const {
             getTableProps,

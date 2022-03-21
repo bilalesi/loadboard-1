@@ -28,13 +28,19 @@ function Dashboard() {
   //
   const handleLeaveChannel = useCallback((feed) => {
     socket.off("initialize", handleTableInitialize);
+    socket.off("update", handleTableUpdate);
     socket.emit("unsubscribeFeed",feed);
   }, []);
   //
   //
   const handleJoinChannel = useCallback((feed) => {
-    socket.emit("subscribeFeed", {...feed, "initialize": true});
+    debugger;
+    socket.emit("subscribeFeed", {...feed, "initialize": true });
     socket.on("initialize", handleTableInitialize);
+    socket.on("monitorUpdate",handleMonitorUpdate)
+  }, []);
+  const handleMonitorUpdate = useCallback(() => {
+    socket.emit("monitorUpdate",socket);
   }, []);
   const handleTableInitialize = useCallback((tableData) => {
     console.log("initialize socketio table:");
@@ -47,8 +53,10 @@ function Dashboard() {
   const handleTableUpdate = useCallback((tableData) => {
     console.log("update socketio table:");
     var loadData = tableData.data;
-    var reportConfig = tableData.reports[0];
-    setDashboardTableData({table:reportConfig,data:loadData,loading:false});
+    var tableConfig = dashboardTable.table;
+    //var reportConfig = tableData.reports[0];
+    debugger;
+    setDashboardTableData({table:tableConfig,data:loadData,loading:false});
   }, []);
 
   useEffect(() => {

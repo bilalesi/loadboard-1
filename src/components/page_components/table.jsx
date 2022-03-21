@@ -3,6 +3,8 @@ import { useTable, useAsyncDebounce } from "react-table";
 import { parseJSON, format, formatDistance, subDays, distanceInWordsToNow } from 'date-fns';
 import convert , { allMeasures } from 'convert-units';
 import { Puff } from 'react-loading-icons';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 function Container({ children, title, tableconfig, data, loading }) {
 
@@ -24,10 +26,52 @@ function Container({ children, title, tableconfig, data, loading }) {
             return () => {}
         }, []); */
 
-        var tableColumns = tableconfig.table.col.map(function(column){
+        debugger;
 
+        var tableColumns = tableconfig.table.col.map(function(column){
             //debugger;
-            if ( column.path.indexOf("isBidActive") > -1 )
+            if ( column.path.indexOf("doc._id") > -1 )
+            {
+                column.HeaderProps = { className:'text-center' };
+                column.CellProps = { className:'d-sm-table-cell text-center fs-sm' };
+                column.Cell = (props) => {
+                    var classes = 'button';
+                    return (
+                        <span className={classes}>
+                            <Popup trigger={<div className="tbl-action-btn" title="Edit"><i class="fas fa-pencil-alt"></i></div>} modal nested>
+                                <div>rowID:{props.value} - Popup content here !!</div>
+                            </Popup>
+                            <Popup trigger={<div className="tbl-action-btn" title="Send email to load contact"><i class="fas fa-reply"></i></div>} modal nested>
+                                <div>
+                                    <h4>Title!</h4>
+                                    <div>
+                                        Content Content Content Blah Content Content Content 
+                                    </div>
+                                </div>
+                            </Popup>
+                            <div className="tbl-action-btn" title="Watch this load" onClick={(eyeIcon) => {
+                                console.log(eyeIcon);
+                                var watchRow = eyeIcon.target.closest('tr');
+                                if ( watchRow.className.indexOf('row-highlight') > -1 )
+                                {
+                                    eyeIcon.target.closest('tr').className = "";
+                                    eyeIcon.target.closest('div').title = "Watch this load";
+                                    //
+                                    // make the watch happen on the server
+                                }
+                                else{
+                                    eyeIcon.target.closest('tr').className = "row-highlight";
+                                    eyeIcon.target.closest('div').title = "Unwatch";
+                                    //
+                                    // make the unwatch happen on the server
+                                }
+
+                            }}><i class="far fa-eye"></i></div>
+                        </span>
+                    );
+                }
+            }
+            else if ( column.path.indexOf("isBidActive") > -1 )
             {
                 column.HeaderProps = { className:'text-center' };
                 column.CellProps = { className:'d-sm-table-cell text-center fs-sm' };
@@ -69,9 +113,11 @@ function Container({ children, title, tableconfig, data, loading }) {
             //debugger;
             else if ( column.path[0].indexOf("Weight") > -1 )
             {
+                debugger;
                 column.HeaderProps = { className:'text-center' };
                 column.CellProps = { className:'d-sm-table-cell text-center fs-sm' };
                 column.Cell = (props) => {
+                    debugger;
                     var weightValue = parseFloat(props.value[0]).toLocaleString("en-US");
                     var weightUOM = props.value[1];
                     var oppositeUOM = weightUOM == "lb" ? "kg": weightUOM;

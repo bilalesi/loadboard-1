@@ -183,6 +183,24 @@ main > .main-container,
 main > .main-container > .container{
   margin-left: 24px;
 }
+.row-highlight{
+  background-color: rgba(255, 255, 0, 0.712);
+}
+.tbl-action-btn{
+  cursor: pointer;
+  display: inline;
+  padding: 3px;
+}
+  .tbl-action-btn:hover{
+    background-color: #4c78dd83;
+  }
+.tbl-action-btn:nth-of-type(n+2) {
+  margin-left: 5px;
+}
+.popup-content{
+  border-radius: 9px;
+  border: 1px solid #4646468c;
+}
 .loadingContainer{
   text-align: center;
   background-color: white;

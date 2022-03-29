@@ -26,42 +26,49 @@ function Dashboard() {
 
   //
   //
-  const handleLeaveChannel = useCallback((feed) => {
+  const handleLeaveChannel = (feed) => {
     socket.off("initialize", handleTableInitialize);
     socket.off("update", handleTableUpdate);
     socket.emit("unsubscribeFeed",feed);
-  }, []);
+  };
   //
   //
-  const handleJoinChannel = useCallback((feed) => {
+  const handleJoinChannel = (feed) => {
     debugger;
     socket.emit("subscribeFeed", {...feed, "initialize": true });
     socket.on("initialize", handleTableInitialize);
-    socket.on("monitorUpdate",handleMonitorUpdate)
-  }, []);
-  const handleMonitorUpdate = useCallback(() => {
-    socket.emit("monitorUpdate",socket);
-  }, []);
-  const handleTableInitialize = useCallback((tableData) => {
+  };
+  const handleTableUpdate = useCallback(() => {
+    console.log('update request received');
+    //get request to update from server
+    //--
+    //request new data from server below
+    socket.on("table-update",(tableData) => {
+      var loadData = tableData.data;
+      var reportConfig = tableData.reports[0];
+      setDashboardTableData({table:reportConfig,data:loadData,loading:false});
+      console.log('table update processed',tableData);
+    }).emit("table-update");
+  },[]);
+  const handleTableInitialize = (tableData) => {
     console.log("initialize socketio table:");
     var loadData = tableData.data;
     var reportConfig = tableData.reports[0];
     setDashboardTableData({table:reportConfig,data:loadData,loading:false});
     console.log(tableData);
-    socket.on("update", handleTableUpdate);
-  }, []);
-  const handleTableUpdate = useCallback((tableData) => {
+    //socket.on("update", handleTableUpdate);
+    socket.on("request-update",handleTableUpdate);
+  };
+  /* const handleTableUpdate = (tableData) => {
     console.log("update socketio table:");
     var loadData = tableData.data;
     var tableConfig = dashboardTable.table;
     //var reportConfig = tableData.reports[0];
     debugger;
     setDashboardTableData({table:tableConfig,data:loadData,loading:false});
-  }, []);
+  }; */
 
   useEffect(() => {
-    //debugger;
-    //retrievedashboardLoads();
     handleJoinChannel({ report: 'Dashboard' });
 
     return () => {
@@ -72,21 +79,6 @@ function Dashboard() {
     }
 
   }, []);
-  async function retrievedashboardLoads() {
-    return await LoadDataService.getAll({'report':'Dashboard', controller:controller, filters: { 'limit': 200 } })
-      .then(response => {
-        //debugger;
-        //console.log(response.data);
-        var loadData = response.data;
-        var reportConfig = response.reports[0];
-        setDashboardTableData({table:reportConfig,data:loadData,loading:false});
-
-        //debugger;
-      })
-      .catch(e => {
-        console.log(e);
-      });
-    };
   //
   //
   //

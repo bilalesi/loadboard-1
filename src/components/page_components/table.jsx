@@ -38,10 +38,10 @@ function Container({ children, title, tableconfig, data, loading }) {
                     var classes = 'button';
                     return (
                         <span className={classes}>
-                            <Popup trigger={<div className="tbl-action-btn" title="Edit"><i class="fas fa-pencil-alt"></i></div>} modal nested>
+                            <Popup trigger={<div className="tbl-action-btn" title="Edit"><i className="fas fa-pencil-alt"></i></div>} modal nested>
                                 <div>rowID:{props.value} - Popup content here !!</div>
                             </Popup>
-                            <Popup trigger={<div className="tbl-action-btn" title="Send email to load contact"><i class="fas fa-reply"></i></div>} modal nested>
+                            <Popup trigger={<div className="tbl-action-btn" title="Send email to load contact"><i className="fas fa-reply"></i></div>} modal nested>
                                 <div>
                                     <h4>Title!</h4>
                                     <div>
@@ -66,7 +66,7 @@ function Container({ children, title, tableconfig, data, loading }) {
                                     // make the unwatch happen on the server
                                 }
 
-                            }}><i class="far fa-eye"></i></div>
+                            }}><i className="far fa-eye"></i></div>
                         </span>
                     );
                 }

@@ -20,6 +20,7 @@ function Dashboard() {
   const [siteTabTitle, setSiteTabTitle] = useState('Dashboard - Loadboard');
   //
   const [dashboardTable, setDashboardTableData] = useState({table:{},data:[{}],loading:true});
+  const [activeBidsCardComponentData, setActiveBidsCardComponentData] = useState({CardType:"LinkBottom",CounterNumber:"",CounterLabel:"Loads on Bid Board",expandDataLabel:"View all Bid Board Loads",logoClassText:"far fa-gem fs-3 text-primary",loading:true});
   const controller = new AbortController();
 
   const socket = useContext(SocketContext);
@@ -35,29 +36,36 @@ function Dashboard() {
   //
   const handleJoinChannel = (feed) => {
     debugger;
-    socket.emit("subscribeFeed", {...feed, "initialize": true });
-    socket.on("initialize", handleTableInitialize);
+    switch (feed.type){
+      case "table":
+        socket.emit("subscribeFeed", {...feed, "initialize": true });
+        socket.on("initialize", handleTableInitialize);
+      break;
+      case "card":
+        //
+      break;
+    }
   };
-  const handleTableUpdate = useCallback(() => {
+  var handleTableUpdate = (reports) => {
     console.log('update request received');
     //get request to update from server
     //--
     //request new data from server below
+    debugger;
     socket.on("table-update",(tableData) => {
       var loadData = tableData.data;
       var reportConfig = tableData.reports[0];
       setDashboardTableData({table:reportConfig,data:loadData,loading:false});
       console.log('table update processed',tableData);
-    }).emit("table-update");
-  },[]);
+    }).emit("table-update",reports);
+  };
   const handleTableInitialize = (tableData) => {
-    console.log("initialize socketio table:");
     var loadData = tableData.data;
     var reportConfig = tableData.reports[0];
     setDashboardTableData({table:reportConfig,data:loadData,loading:false});
-    console.log(tableData);
+    console.log("initialize socketio table:",tableData);
     //socket.on("update", handleTableUpdate);
-    socket.on("request-update",handleTableUpdate);
+    socket.on("table-request-update",handleTableUpdate(tableData.reports));
   };
   /* const handleTableUpdate = (tableData) => {
     console.log("update socketio table:");
@@ -69,13 +77,13 @@ function Dashboard() {
   }; */
 
   useEffect(() => {
-    handleJoinChannel({ report: 'Dashboard' });
+    handleJoinChannel({ report: 'Dashboard', type: 'table' });
 
     return () => {
       //axios
       controller.abort();
       //socketio
-      handleLeaveChannel({ report: 'Dashboard' });
+      handleLeaveChannel({ report: 'Dashboard', type: 'table' });
     }
 
   }, []);
@@ -104,11 +112,11 @@ function Dashboard() {
               <div className="content content-body">
                 <div className="row">
                   <DataCardBlock 
-                    CardType="LinkBottom"
-                    CounterNumber='9'
-                    CounterLabel='Loads on Bid Board'
-                    expandDataLabel='View all Bid Board Loads'
-                    logoClassText='far fa-gem fs-3 text-primary'
+                    CardType={activeBidsCardComponentData.CardType}
+                    CounterNumber='2'
+                    CounterLabel={activeBidsCardComponentData.CounterLabel}
+                    expandDataLabel={activeBidsCardComponentData.expandDataLabel}
+                    logoClassText={activeBidsCardComponentData.logoClassText}
                   />
                   <DataCardBlock
                     CardType="LinkBottom"

@@ -17,71 +17,74 @@ function Dashboard() {
     document.title = process.env.REACT_APP_SITE_TITLE + " - Dashboard"
   }, []); */
   //
-  const [siteTabTitle, setSiteTabTitle] = useState('Dashboard - Loadboard');
+  const [siteTabTitle] = useState('Dashboard - Loadboard');
   //
   const [dashboardTable, setDashboardTableData] = useState({table:{},data:[{}],loading:true});
   const [activeBidsCardComponentData, setActiveBidsCardComponentData] = useState({CardType:"LinkBottom",CounterNumber:"",CounterLabel:"Loads on Bid Board",expandDataLabel:"View all Bid Board Loads",logoClassText:"far fa-gem fs-3 text-primary",loading:true});
-  const controller = new AbortController();
 
   const socket = useContext(SocketContext);
 
-  //
-  //
-  const handleLeaveChannel = (feed) => {
-    socket.off("initialize", handleTableInitialize);
-    socket.off("update", handleTableUpdate);
-    socket.emit("unsubscribeFeed",feed);
-  };
-  //
-  //
-  const handleJoinChannel = (feed) => {
-    debugger;
-    switch (feed.type){
-      case "table":
-        socket.emit("subscribeFeed", {...feed, "initialize": true });
-        socket.on("initialize", handleTableInitialize);
-      break;
-      case "card":
-        //
-      break;
+  useEffect(() => {
+    if ( dashboardTable.initialized ){
+      var t = dashboardTable;
+      console.log("start tracking updates for:",dashboardTable);
+      delete t.initialized;
+      setDashboardTableData(t)
+      //socket.on("update", handleTableUpdate);
+      socket.on("table-request-update",handleTableUpdate(dashboardTable));
+      // write your callback function here
     }
+  }, [dashboardTable]);
+
+  //
+  //
+  const handleTableInitialize = async (tableData) => {
+    console.log('tableinitialize',tableData);
+    var loadData = tableData.data;
+    var reportConfig = tableData.reports[0];
+    setDashboardTableData({table:reportConfig,data:loadData,loading:false,initialized:true,report:tableData.reports});
   };
-  var handleTableUpdate = (reports) => {
+  //
+  //
+  var handleTableUpdate = (table) => {
     console.log('update request received');
     //get request to update from server
     //--
     //request new data from server below
+    console.log('table',table);
     debugger;
     socket.on("table-update",(tableData) => {
-      var loadData = tableData.data;
-      var reportConfig = tableData.reports[0];
-      setDashboardTableData({table:reportConfig,data:loadData,loading:false});
+      console.log('tableData',tableData);
+      setDashboardTableData({table:table.table,data:tableData.data,loading:false,report:table.report});
       console.log('table update processed',tableData);
-    }).emit("table-update",reports);
+    });
+    socket.emit("table-update",table);
   };
-  const handleTableInitialize = (tableData) => {
-    var loadData = tableData.data;
-    var reportConfig = tableData.reports[0];
-    setDashboardTableData({table:reportConfig,data:loadData,loading:false});
-    console.log("initialize socketio table:",tableData);
-    //socket.on("update", handleTableUpdate);
-    socket.on("table-request-update",handleTableUpdate(tableData.reports));
-  };
-  /* const handleTableUpdate = (tableData) => {
-    console.log("update socketio table:");
-    var loadData = tableData.data;
-    var tableConfig = dashboardTable.table;
-    //var reportConfig = tableData.reports[0];
-    debugger;
-    setDashboardTableData({table:tableConfig,data:loadData,loading:false});
-  }; */
 
   useEffect(() => {
+    const handleLeaveChannel = (feed) => {
+      socket.off("initialize", handleTableInitialize);
+      socket.off("update", handleTableUpdate);
+      socket.emit("unsubscribeFeed",feed);
+    };
+    //
+    //
+    const handleJoinChannel = (feed) => {
+      debugger;
+      switch (feed.type){
+        case "table":
+          socket.emit("subscribeFeed", {...feed, "initialize": true });
+          socket.on("initialize", handleTableInitialize);
+        break;
+        case "card":
+          //
+        break;
+      }
+    };
+
     handleJoinChannel({ report: 'Dashboard', type: 'table' });
 
     return () => {
-      //axios
-      controller.abort();
       //socketio
       handleLeaveChannel({ report: 'Dashboard', type: 'table' });
     }

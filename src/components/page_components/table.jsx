@@ -1,5 +1,5 @@
-import { React, useMemo } from "react";
-import { useTable, useAsyncDebounce } from "react-table";
+import { React, useMemo, Component } from "react";
+import { useTable } from "react-table";
 import { parseJSON, format, formatDistance, subDays, distanceInWordsToNow } from 'date-fns';
 import convert , { allMeasures } from 'convert-units';
 import { Puff } from 'react-loading-icons';
@@ -7,6 +7,77 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
 function Container({ children, title, tableconfig, data, loading }) {
+    class TableErrorBoundary extends Component {
+        constructor(props) {
+            super(props);
+            this.state = { hasError: false };
+        }
+    
+        static getDerivedStateFromError(error) {
+            // Update state so the next render will show the fallback UI.
+            return { hasError: true };
+        }
+    
+        /* componentDidCatch(error, errorInfo) {
+            // You can also log the error to an error reporting service
+            logErrorToMyService(error, errorInfo);
+        } */
+    
+        render() {
+            if (this.state.hasError) {
+            // You can render any custom fallback UI
+            return(
+                <div className="block block-rounded">
+                    <div className="block-header block-header-default">
+                    <h3 className="block-title">Oops..</h3>
+                    </div>
+                    <div className="loadingContainer">
+                    <span className="d-block h2"><i className="fas fa-bomb"></i></span>
+                    <h3 className="d-block">We're sorry<small className="text-muted "> it appears there has been an error.</small></h3>
+                    <strong>Please try again in a few minutes.</strong>
+                    </div>
+                </div>
+            );
+            }
+    
+            return this.props.children; 
+        }
+    }
+    class TableBodyErrorBoundary extends Component {
+        constructor(props) {
+            super(props);
+            this.state = { hasError: false };
+        }
+    
+        static getDerivedStateFromError(error) {
+            // Update state so the next render will show the fallback UI.
+            return { hasError: true };
+        }
+    
+        /* componentDidCatch(error, errorInfo) {
+            // You can also log the error to an error reporting service
+            logErrorToMyService(error, errorInfo);
+        } */
+        
+        render() {
+            if (this.state.hasError) {
+            // You can render any custom fallback UI
+            return(
+                <tbody>
+                    <tr>
+                        <td className="text-center" colSpan={tableconfig.table.col.length}>
+                            <span className="d-block h2"><i className="fas fa-bomb"></i></span>
+                            <h3 className="d-block">We're sorry<small className="text-muted "> it appears there has been an error.</small></h3>
+                            <strong>Please try again in a few minutes.</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            );
+            }
+    
+            return this.props.children; 
+        }
+    }
 
     function TableBlock() {
         //
@@ -113,11 +184,10 @@ function Container({ children, title, tableconfig, data, loading }) {
             //debugger;
             else if ( column.path[0].indexOf("Weight") > -1 )
             {
-                debugger;
+                
                 column.HeaderProps = { className:'text-center' };
                 column.CellProps = { className:'d-sm-table-cell text-center fs-sm' };
                 column.Cell = (props) => {
-                    debugger;
                     var weightValue = parseFloat(props.value[0]).toLocaleString("en-US");
                     var weightUOM = props.value[1];
                     var oppositeUOM = weightUOM == "lb" ? "kg": weightUOM;
@@ -303,7 +373,9 @@ function Container({ children, title, tableconfig, data, loading }) {
                         <div className="table-responsive">
                             <table className="table table-borderless table-striped table-vcenter" {...getTableProps()}>
                                 <TableColumnHeaders />
-                                <TableBody />
+                                <TableBodyErrorBoundary>
+                                    <TableBody />
+                                </TableBodyErrorBoundary>
                             </table>
                         </div>
                     </div>
@@ -463,7 +535,9 @@ function Container({ children, title, tableconfig, data, loading }) {
             </div>
             }
             { !loading &&
-            <TableBlock />
+            <TableErrorBoundary>
+                <TableBlock />
+            </TableErrorBoundary>
             }
             {children}
         </div>

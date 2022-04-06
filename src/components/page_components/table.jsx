@@ -116,7 +116,7 @@ function Container({ children, title, tableconfig, data, loading }) {
                                 <div>
                                     <h4>Title!</h4>
                                     <div>
-                                        Content Content Content Blah Content Content Content 
+                                        Send email to load contact, blah blah blah blah blah blah blah
                                     </div>
                                 </div>
                             </Popup>

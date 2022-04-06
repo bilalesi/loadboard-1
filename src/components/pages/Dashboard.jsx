@@ -31,7 +31,8 @@ function Dashboard() {
   useEffect(() => {
     DashboardTableContext.current = dashboardTable;
     activeBidLoadsTableContext.current = activeBidLoadsTable;
-  }, [dashboardTable]);
+  }, [dashboardTable,activeBidLoadsTable]);
+  
 
   useEffect(() => {
     //
@@ -83,7 +84,6 @@ function Dashboard() {
     const handleLeaveChannel = (feed) => {
       socket.emit("unsubscribeFeed",feed);
       socket.removeAllListeners("initialize");
-      socket.removeAllListeners("update");
       socket.removeAllListeners('table-update');
       socket.removeAllListeners('table-request-update')
     };
@@ -99,6 +99,9 @@ function Dashboard() {
         break;
         case "card":
           //
+          socket.emit("subscribeFeed", {...feed, "initialize": true });
+          socket.on("initialize", handleTableInitialize);
+          socket.on("card-update",handleReturnDataTableUpdate);
         break;
       }
     };
@@ -112,6 +115,7 @@ function Dashboard() {
     return () => {
       //socketio
       handleLeaveChannel({ report: 'Dashboard', type: 'table' });
+      handleLeaveChannel({ report: 'Bid Board Active Loads', type: 'table' });
     }
   }, []);
 

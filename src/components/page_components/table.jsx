@@ -1,5 +1,5 @@
-import { React, useMemo, Component } from "react";
-import { useTable } from "react-table";
+import React, { useMemo, Component } from "react";
+import { useTable, useFilters } from "react-table";
 import { parseJSON, format, formatDistance, subDays, distanceInWordsToNow } from 'date-fns';
 import convert , { allMeasures } from 'convert-units';
 import { Puff } from 'react-loading-icons';
@@ -149,7 +149,7 @@ function Container({ children, title, tableconfig, data, loading }) {
                 column.Cell = (props) => {
                     var classes = 'badge ' + (props.value[0] === true ? "bg-success" : "bg-danger");
                     var asOfdateValue = parseJSON(props.value[1],'yyyy-mm-ddTHH:mm:ss.XX', new Date());
-                    var asOfTextDateFormat = format(asOfdateValue,"MM/dd/yyyy") === format(new Date(),"MM/dd/yyyy") ? format(asOfdateValue,"h:m a") : format(asOfdateValue,"MM/dd/yyyy h:m a");
+                    var asOfTextDateFormat = format(asOfdateValue,"MM/dd/yyyy") === format(new Date(),"MM/dd/yyyy") ? format(asOfdateValue,"h:mm a") : format(asOfdateValue,"MM/dd/yyyy h:mm a");
                     var asOfText = 'Last seen ' + asOfTextDateFormat;
                     var asOfTextHover = formatDistance(
                         asOfdateValue,

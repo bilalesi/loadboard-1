@@ -20,30 +20,51 @@ function Dashboard() {
   const [siteTabTitle] = useState('Dashboard - Loadboard');
   //
   const [dashboardTable, setDashboardTableData] = useState({table:{},data:[{}],loading:true});
+  const [activeBidLoadsTable, setactiveBidLoadsTableData] = useState({table:{},data:[{}],loading:true});
   const [activeBidsCardComponentData, setActiveBidsCardComponentData] = useState({CardType:"LinkBottom",CounterNumber:"",CounterLabel:"Loads on Bid Board",expandDataLabel:"View all Bid Board Loads",logoClassText:"far fa-gem fs-3 text-primary",loading:true});
-
+  
   const socket = useContext(SocketContext);
 
   var DashboardTableContext = useRef(dashboardTable);
+  var activeBidLoadsTableContext = useRef(activeBidLoadsTable);
 
   useEffect(() => {
     DashboardTableContext.current = dashboardTable;
+    activeBidLoadsTableContext.current = activeBidLoadsTable;
   }, [dashboardTable]);
 
   useEffect(() => {
     //
     //
     const handleTableInitialize = async (tableData) => {
-      console.log('tableinitialize',tableData,DashboardTableContext.current);
+      console.log('tableinitialize',tableData);
       var loadData = tableData.data;
       var reportConfig = tableData.reports[0];
-      setDashboardTableData({table:reportConfig,data:loadData,loading:false,initialized:true,report:tableData.reports});
+      var tableprops = {table:reportConfig,data:loadData,loading:false,initialized:true,report:tableData.reports};
+      switch (reportConfig.name)
+      {
+        case 'Dashboard':
+          setDashboardTableData(tableprops);
+        break;
+        case 'Bid Board Active Loads':
+          setactiveBidLoadsTableData(tableprops);
+        break;
+      }
     };
     //
     //
     const handleReturnDataTableUpdate = async (tableData) => {
-        console.log('tableData',{table:tableData.reports[0], data:tableData.data, loading:false, report:{_id: tableData.reports[0]._id, name: tableData.reports[0].name}});
-        setDashboardTableData({table:tableData.reports[0], data:tableData.data, loading:false, report:{_id: tableData.reports[0]._id, name: tableData.reports[0].name}});
+        var reportConfig = tableData.reports[0];
+        var tableprops = {table:reportConfig, data:tableData.data, loading:false, report:{_id: reportConfig._id, name: reportConfig.name}};
+        switch (reportConfig.name)
+        {
+          case 'Dashboard':
+            setDashboardTableData(tableprops);
+          break;
+          case 'Bid Board Active Loads':
+            setactiveBidLoadsTableData(tableprops);
+          break;
+        }
         console.log('table update processed',tableData);
     };
     //
@@ -53,9 +74,10 @@ function Dashboard() {
       //get request to update from server
       //--
       //request new data from server below
-      console.log('table',dashboardTable, DashboardTableContext.current);
+      //console.log('table',dashboardTable, DashboardTableContext.current);
       debugger;
       socket.emit("table-update",DashboardTableContext.current);
+      socket.emit("table-update",activeBidLoadsTableContext.current);
     };
 
     const handleLeaveChannel = (feed) => {
@@ -85,6 +107,7 @@ function Dashboard() {
     socket.on("table-request-update",handleTableUpdate);
 
     handleJoinChannel({ report: 'Dashboard', type: 'table' });
+    handleJoinChannel({ report: 'Bid Board Active Loads', type: 'table' });
 
     return () => {
       //socketio
@@ -146,6 +169,9 @@ function Dashboard() {
                 </div>
                 {dashboardTable.data && 
                 <TableBlock data={dashboardTable.data} tableconfig={dashboardTable.table} loading={dashboardTable.loading} />
+                }
+                {activeBidLoadsTable.data && 
+                <TableBlock data={activeBidLoadsTable.data} tableconfig={activeBidLoadsTable.table} loading={activeBidLoadsTable.loading} />
                 }
               </div>
             </div>

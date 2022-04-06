@@ -142,18 +142,29 @@ function Container({ children, title, tableconfig, data, loading }) {
                     );
                 }
             }
-            else if ( column.path.indexOf("isBidActive") > -1 )
+            else if ( column.path[0].indexOf("isBidActive") > -1 )
             {
                 column.HeaderProps = { className:'text-center' };
                 column.CellProps = { className:'d-sm-table-cell text-center fs-sm' };
                 column.Cell = (props) => {
-                    console.log('props bidactive',props.value);
                     var classes = 'badge ' + (props.value[0] === true ? "bg-success" : "bg-danger");
-                    var asOfText = 'Last seen on bid board ' + props.value[1];
+                    var asOfdateValue = parseJSON(props.value[1],'yyyy-mm-ddTHH:mm:ss.XX', new Date());
+                    var asOfTextDateFormat = format(asOfdateValue,"MM/dd/yyyy") === format(new Date(),"MM/dd/yyyy") ? format(asOfdateValue,"h:m a") : format(asOfdateValue,"MM/dd/yyyy h:m a");
+                    var asOfText = 'Last seen ' + asOfTextDateFormat;
+                    var asOfTextHover = formatDistance(
+                        asOfdateValue,
+                        new Date(),
+                        { addSuffix: true }
+                    );
                     return (
-                        <span className={classes} title={asOfText} >
-                        { props.value[1] === true ? "Available" : "Unavailable" }
-                        </span>
+                        <>
+                            <span className={classes} title={asOfTextHover} >
+                                { props.value[0] === true ? "Available" : "Unavailable" }
+                            </span>
+                            <span className="d-block badge text-muted" title={asOfTextHover}>
+                                {asOfText}
+                            </span>
+                        </>
                     );
                 }
             }

@@ -15,7 +15,7 @@ const getAll = async ({report,filters,controller}) => {
     }
     // process.env.DEV_AXIOS_URL
     //             PROD_AXIOS_URL
-    return await axios.get(process.env.REACT_APP_DEV_AXIOS_URL + appendUrl, {
+    return await axios.get(process.env.REACT_APP_PROD_AXIOS_URL + appendUrl, {
         signal: controller.signal
     }).then(res => res.data);
         /*try {

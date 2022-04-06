@@ -32,6 +32,7 @@ function Dashboard() {
     DashboardTableContext.current = dashboardTable;
     activeBidLoadsTableContext.current = activeBidLoadsTable;
   }, [dashboardTable,activeBidLoadsTable]);
+
   
 
   useEffect(() => {
@@ -82,40 +83,48 @@ function Dashboard() {
     };
 
     const handleLeaveChannel = (feed) => {
-      socket.emit("unsubscribeFeed",feed);
-      socket.removeAllListeners("initialize");
-      socket.removeAllListeners('table-update');
-      socket.removeAllListeners('table-request-update')
+      feed.map(function(table){
+        socket.emit("unsubscribeFeed",table);
+        socket.removeAllListeners("initialize");
+        socket.removeAllListeners('table-update');
+        socket.removeAllListeners('table-request-update');
+      });
     };
     //
     //
     const handleJoinChannel = (feed) => {
       debugger;
-      switch (feed.type){
-        case "table":
-          socket.emit("subscribeFeed", {...feed, "initialize": true });
-          socket.on("initialize", handleTableInitialize);
-          socket.on("table-update",handleReturnDataTableUpdate);
-        break;
-        case "card":
-          //
-          socket.emit("subscribeFeed", {...feed, "initialize": true });
-          socket.on("initialize", handleTableInitialize);
-          socket.on("card-update",handleReturnDataTableUpdate);
-        break;
-      }
+      feed.map(function(table){
+        switch (table.type){
+          case "table":
+            socket.emit("subscribeFeed", {...table, "initialize": true });
+            socket.on("initialize", handleTableInitialize);
+            socket.on("table-update",handleReturnDataTableUpdate);
+          break;
+          case "card":
+            //
+            socket.emit("subscribeFeed", {...table, "initialize": true });
+            socket.on("initialize", handleTableInitialize);
+            //socket.on("card-update",handleReturnDataTableUpdate);
+          break;
+        }
+      });
     };
 
     
     socket.on("table-request-update",handleTableUpdate);
 
-    handleJoinChannel({ report: 'Dashboard', type: 'table' });
-    handleJoinChannel({ report: 'Bid Board Active Loads', type: 'table' });
+    handleJoinChannel([
+      { report: 'Dashboard', type: 'table' },
+      { report: 'Bid Board Active Loads', type: 'table' }
+    ]);
 
     return () => {
       //socketio
-      handleLeaveChannel({ report: 'Dashboard', type: 'table' });
-      handleLeaveChannel({ report: 'Bid Board Active Loads', type: 'table' });
+      handleLeaveChannel([
+        { report: 'Dashboard', type: 'table' },
+        { report: 'Bid Board Active Loads', type: 'table' }
+      ]);
     }
   }, []);
 

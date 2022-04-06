@@ -147,19 +147,34 @@ function Container({ children, title, tableconfig, data, loading }) {
                 column.HeaderProps = { className:'text-center' };
                 column.CellProps = { className:'d-sm-table-cell text-center fs-sm' };
                 column.Cell = (props) => {
-                    var classes = 'badge ' + (props.value[0] === true ? "bg-success" : "bg-danger");
-                    var asOfdateValue = parseJSON(props.value[1],'yyyy-mm-ddTHH:mm:ss.XX', new Date());
-                    var asOfTextDateFormat = format(asOfdateValue,"MM/dd/yyyy") === format(new Date(),"MM/dd/yyyy") ? format(asOfdateValue,"h:mm a") : format(asOfdateValue,"MM/dd/yyyy h:mm a");
-                    var asOfText = 'Last seen ' + asOfTextDateFormat;
-                    var asOfTextHover = formatDistance(
-                        asOfdateValue,
-                        new Date(),
-                        { addSuffix: true }
-                    );
+                    var classes,
+                        date = parseJSON(props.value[1],'yyyy-mm-ddTHH:mm:ss.XX', new Date());
+                        var asOfdateValue = date == "Invalid Date" ? false : date,
+                        asOfText, asOfTextHover,
+                        loadStatus = props.value[0] === true ? "Available" : "Unavailable";
+
+                    if ( !asOfdateValue )
+                    {
+                        classes = 'badge ' + 'bg-warning';
+                        asOfText = "Now";
+                        asOfTextHover = "Within the last 2 minutes.";
+                        loadStatus = "NEW"
+                    }
+                    else{
+                        classes = 'badge ' + (props.value[0] === true ? "bg-success" : "bg-danger");
+                        var asOfTextDateFormat = format(asOfdateValue,"MM/dd/yyyy") === format(new Date(),"MM/dd/yyyy") ? format(asOfdateValue,"h:mm a") : format(asOfdateValue,"MM/dd/yyyy h:mm a"),
+                        asOfText = 'Last seen ' + asOfTextDateFormat,
+                        asOfTextHover = formatDistance(
+                            asOfdateValue,
+                            new Date(),
+                            { addSuffix: true }
+                        );
+                    }
+                    
                     return (
                         <>
                             <span className={classes} title={asOfTextHover} >
-                                { props.value[0] === true ? "Available" : "Unavailable" }
+                                {loadStatus}
                             </span>
                             <span className="d-block badge text-muted" title={asOfTextHover}>
                                 {asOfText}

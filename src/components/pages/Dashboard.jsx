@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useEffect, useContext, useCallback, useRef } from "react";
 //import truckPicture from '../../assets/images/truck.jpg';
 import LoadDataService from "../../services/loads";
 import { Puff } from 'react-loading-icons';
@@ -24,48 +24,46 @@ function Dashboard() {
 
   const socket = useContext(SocketContext);
 
+  var DashboardTableContext = useRef(dashboardTable);
+
   useEffect(() => {
-    if ( dashboardTable.initialized ){
-      var t = dashboardTable;
-      console.log("start tracking updates for:",dashboardTable);
-      delete t.initialized;
-      setDashboardTableData(t)
-      //socket.on("update", handleTableUpdate);
-      socket.on("table-request-update",handleTableUpdate(dashboardTable));
-      // write your callback function here
-    }
+    DashboardTableContext.current = dashboardTable;
   }, [dashboardTable]);
 
-  //
-  //
-  const handleTableInitialize = async (tableData) => {
-    console.log('tableinitialize',tableData);
-    var loadData = tableData.data;
-    var reportConfig = tableData.reports[0];
-    setDashboardTableData({table:reportConfig,data:loadData,loading:false,initialized:true,report:tableData.reports});
-  };
-  //
-  //
-  var handleTableUpdate = (table) => {
-    console.log('update request received');
-    //get request to update from server
-    //--
-    //request new data from server below
-    console.log('table',table);
-    debugger;
-    socket.on("table-update",(tableData) => {
-      console.log('tableData',tableData);
-      setDashboardTableData({table:table.table,data:tableData.data,loading:false,report:table.report});
-      console.log('table update processed',tableData);
-    });
-    socket.emit("table-update",table);
-  };
-
   useEffect(() => {
+    //
+    //
+    const handleTableInitialize = async (tableData) => {
+      console.log('tableinitialize',tableData,DashboardTableContext.current);
+      var loadData = tableData.data;
+      var reportConfig = tableData.reports[0];
+      setDashboardTableData({table:reportConfig,data:loadData,loading:false,initialized:true,report:tableData.reports});
+    };
+    //
+    //
+    const handleReturnDataTableUpdate = async (tableData) => {
+        console.log('tableData',{table:tableData.reports[0], data:tableData.data, loading:false, report:{_id: tableData.reports[0]._id, name: tableData.reports[0].name}});
+        setDashboardTableData({table:tableData.reports[0], data:tableData.data, loading:false, report:{_id: tableData.reports[0]._id, name: tableData.reports[0].name}});
+        console.log('table update processed',tableData);
+    };
+    //
+    //
+    var handleTableUpdate = () => {
+      console.log('---> update request received');
+      //get request to update from server
+      //--
+      //request new data from server below
+      console.log('table',dashboardTable, DashboardTableContext.current);
+      debugger;
+      socket.emit("table-update",DashboardTableContext.current);
+    };
+
     const handleLeaveChannel = (feed) => {
-      socket.off("initialize", handleTableInitialize);
-      socket.off("update", handleTableUpdate);
       socket.emit("unsubscribeFeed",feed);
+      socket.removeAllListeners("initialize");
+      socket.removeAllListeners("update");
+      socket.removeAllListeners('table-update');
+      socket.removeAllListeners('table-request-update')
     };
     //
     //
@@ -75,6 +73,7 @@ function Dashboard() {
         case "table":
           socket.emit("subscribeFeed", {...feed, "initialize": true });
           socket.on("initialize", handleTableInitialize);
+          socket.on("table-update",handleReturnDataTableUpdate);
         break;
         case "card":
           //
@@ -82,14 +81,17 @@ function Dashboard() {
       }
     };
 
+    
+    socket.on("table-request-update",handleTableUpdate);
+
     handleJoinChannel({ report: 'Dashboard', type: 'table' });
 
     return () => {
       //socketio
       handleLeaveChannel({ report: 'Dashboard', type: 'table' });
     }
-
   }, []);
+
   //
   //
   //

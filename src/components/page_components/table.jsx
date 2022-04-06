@@ -147,10 +147,12 @@ function Container({ children, title, tableconfig, data, loading }) {
                 column.HeaderProps = { className:'text-center' };
                 column.CellProps = { className:'d-sm-table-cell text-center fs-sm' };
                 column.Cell = (props) => {
-                    var classes = 'badge ' + (props.value === true ? "bg-success" : "bg-danger");
+                    console.log('props bidactive',props.value);
+                    var classes = 'badge ' + (props.value[0] === true ? "bg-success" : "bg-danger");
+                    var asOfText = 'Last seen on bid board ' + props.value[1];
                     return (
-                        <span className={classes}>
-                        { props.value === true ? "Available" : "Unavailable" }
+                        <span className={classes} title={asOfText} >
+                        { props.value[1] === true ? "Available" : "Unavailable" }
                         </span>
                     );
                 }
@@ -175,7 +177,7 @@ function Container({ children, title, tableconfig, data, loading }) {
                     
                     return (
                         <div>
-                            <span className={['text-muted',classBold].join(' ')}>{format(planDate, 'MM/dd/yyyy')}</span>
+                            <span className={[classBold].join(' ')}>{format(planDate, 'MM/dd/yyyy')}</span>
                             <small className={['d-block text-muted',classBold].join(" ")}>{planDateDistance}</small>
                         </div>
                     );
@@ -196,7 +198,7 @@ function Container({ children, title, tableconfig, data, loading }) {
                     //debugger;
                     return (
                         <div>
-                            <small className="d-block text-muted"><span>{weightValue + " " + weightUOM}</span><span className="d-block">({oppositeWeight + " " + oppositeUOM})</span></small>
+                            <small className="d-block"><span>{weightValue + " " + weightUOM}</span><span className="d-block text-muted">({oppositeWeight + " " + oppositeUOM})</span></small>
                         </div>
                     );
                 }

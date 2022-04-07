@@ -1,6 +1,6 @@
 # LoadBoard UI
 
-Written in React, front-end for the loadboard services.
+Written in React, front-end for the loadboard services. Heavily relies on SocketIO.
 
 ## Available Scripts
 

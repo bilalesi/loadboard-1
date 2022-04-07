@@ -30,8 +30,17 @@ function Dashboard() {
 
   useEffect(() => {
     DashboardTableContext.current = dashboardTable;
+    return () => {
+      console.log('::updated context1::')
+    }
+  }, [dashboardTable.table]);
+  useEffect(() => {
     activeBidLoadsTableContext.current = activeBidLoadsTable;
-  }, [dashboardTable,activeBidLoadsTable]);
+    return () => {
+      console.log('::updated context2::')
+    }
+  }, [activeBidLoadsTable.table]);
+  
 
   
 
@@ -104,7 +113,7 @@ function Dashboard() {
           case "card":
             //
             socket.emit("subscribeFeed", {...table, "initialize": true });
-            socket.on("initialize", handleTableInitialize);
+            //socket.on("initialize", handleTableInitialize);
             //socket.on("card-update",handleReturnDataTableUpdate);
           break;
         }
@@ -116,14 +125,16 @@ function Dashboard() {
 
     handleJoinChannel([
       { report: 'Dashboard', type: 'table' },
-      { report: 'Bid Board Active Loads', type: 'table' }
+      { report: 'Bid Board Active Loads', type: 'table' },
+      { report: 'Loads on Bid Board', type: 'card' }
     ]);
 
     return () => {
       //socketio
       handleLeaveChannel([
         { report: 'Dashboard', type: 'table' },
-        { report: 'Bid Board Active Loads', type: 'table' }
+        { report: 'Bid Board Active Loads', type: 'table' },
+        { report: 'Loads on Bid Board', type: 'card' }
       ]);
     }
   }, []);

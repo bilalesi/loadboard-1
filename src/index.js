@@ -25,13 +25,13 @@ ReactDOM.render(
       <Navigation />
       <Header />
       <Routes>
-          <Route path='*' element={<Error_404 />} />
           <Route path="/" element={<Dashboard />} />
           <Route path="/Integrations" element={<Integrations />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/user-management" element={<UserManagement />} />
           <Route path="/component-list" element={<ComponentListPreview />} />
           <Route path="/load" element={<ViewLoad />} />
+          <Route path='*' element={<Error_404 />} />
       </Routes>
     </SocketContext.Provider>
   </Router>,

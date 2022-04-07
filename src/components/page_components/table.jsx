@@ -97,7 +97,6 @@ function Container({ children, title, tableconfig, data, loading }) {
             return () => {}
         }, []); */
 
-        debugger;
 
         var tableColumns = tableconfig.table.col.map(function(column){
             //debugger;

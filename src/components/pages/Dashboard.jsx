@@ -86,7 +86,6 @@ function Dashboard() {
       //--
       //request new data from server below
       //console.log('table',dashboardTable, DashboardTableContext.current);
-      debugger;
       socket.emit("table-update",DashboardTableContext.current);
       socket.emit("table-update",activeBidLoadsTableContext.current);
     };
@@ -102,7 +101,6 @@ function Dashboard() {
     //
     //
     const handleJoinChannel = (feed) => {
-      debugger;
       feed.map(function(table){
         switch (table.type){
           case "table":
@@ -139,9 +137,7 @@ function Dashboard() {
     }
   }, []);
 
-  //
-  //
-  //
+  
   return (
       <div className="Dashboard main-container">
         <Helmet defer={false}>

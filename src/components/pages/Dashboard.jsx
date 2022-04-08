@@ -125,16 +125,14 @@ function Dashboard() {
 
     handleJoinChannel([
       { report: 'Dashboard', type: 'table' },
-      { report: 'Bid Board Active Loads', type: 'table' },
-      { report: 'Loads on Bid Board', type: 'card' }
+      { report: 'Bid Board Active Loads', type: 'table' }
     ]);
 
     return () => {
       //socketio
       handleLeaveChannel([
         { report: 'Dashboard', type: 'table' },
-        { report: 'Bid Board Active Loads', type: 'table' },
-        { report: 'Loads on Bid Board', type: 'card' }
+        { report: 'Bid Board Active Loads', type: 'table' }
       ]);
     }
   }, []);

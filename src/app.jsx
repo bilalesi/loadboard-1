@@ -26,7 +26,7 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      let response = await fetch( process.env.BACKEND_DEV_URL + `/auth/check`, {
+      let response = await fetch( process.env.BACKEND_PROD_URL + `/auth/check`, {
         method: "GET",
         credentials: "include",
         headers: {

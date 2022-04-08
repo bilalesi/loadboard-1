@@ -5,7 +5,7 @@ export default function Login() {
     // Authenticate using via passport api in the backend
     // Open Microsoft login page
     // Upon successful login, a cookie session will be stored in the client
-    window.open("http://localhost:4000/auth/microsoft", "_self");
+    window.open(process.env.REACT_APP_BACKEND_PROD_URL + "/auth/microsoft", "_self");
   };
   return (
     <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 min-vw-100">

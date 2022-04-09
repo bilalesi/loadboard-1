@@ -16,7 +16,7 @@ import { useAuthState } from "../../context/authContext";
 function Dashboard() {
   const { user } = useAuthState();
   let userFullname = String(user.lastName).toUpperCase() + " " + `${String(user.firstName).charAt(0).toUpperCase()}${String(user.firstName).slice(1)}`;
-  const [siteTabTitle] = useState('Dashboard - Loadboard');
+  const [siteTabTitle, setSiteTitle] = useState('Dashboard - Loadboard');
   //
   const [dashboardTable, setDashboardTableData] = useState({table:{},data:[{}],loading:true});
   const [activeBidLoadsTable, setactiveBidLoadsTableData] = useState({table:{},data:[{}],loading:true});

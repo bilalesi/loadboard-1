@@ -1,6 +1,9 @@
-import React from "react";
+import React,{useState} from "react";
+import {Helmet} from "react-helmet";
 
 export default function Login() {
+  const [siteTabTitle, setSiteTitle] = useState('Login - American Specialized Load Board');
+
   const _handleSignInClick = () => {
     // Authenticate using via passport api in the backend
     // Open Microsoft login page
@@ -9,8 +12,12 @@ export default function Login() {
   };
   return (
     <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 min-vw-100 text-center">
+        <Helmet defer={false}>
+          <title>{siteTabTitle}</title>
+          <meta name="description" content="Dashboard" />
+        </Helmet>
         <div className="card p-5 align-center">
-            <span className="card-title"><h5>Sign in to the load board</h5><span>American Specialized Load Board Application</span></span>
+            <span className="card-title"><h5>Sign in to the load board</h5><span className="card-subtitle mb-2 text-muted">American Specialized Load Board Application</span></span>
             <div className="card-body">
               <button
                 className="btn flex-column justify-content-center align-items-center bg-dark text-white"

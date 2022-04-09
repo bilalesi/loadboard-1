@@ -66,71 +66,75 @@ export default function App() {
         </React.Fragment>
       )}
       <Routes>
-        <Route
-          path="/login"
-          element={
-            <AlreadyAuthenticated>
-              <Login />
-            </AlreadyAuthenticated>
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <AlreadyAuthenticated>
-              <Login />
-            </AlreadyAuthenticated>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <RequireAuth>
-              <Dashboard />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/Integrations"
-          element={
-            <RequireAuth>
-              <Integrations />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/user-profile"
-          element={
-            <RequireAuth>
-              <UserProfile />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/user-management"
-          element={
-            <RequireAuth>
-              <UserManagement />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/component-list"
-          element={
-            <RequireAuth>
-              <ComponentListPreview />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/load"
-          element={
-            <RequireAuth>
-              <ViewLoad />
-            </RequireAuth>
-          }
-        />
-        <Route path="*" element={<Error_404 />} />
+        {authState.is_authenticated && (
+            <Route
+              path="/dashboard"
+              element={
+                <RequireAuth>
+                  <Dashboard />
+                </RequireAuth>
+              }
+            />
+          ) && (
+            <Route
+              path="/Integrations"
+              element={
+                <RequireAuth>
+                  <Integrations />
+                </RequireAuth>
+              }
+            />
+          ) && (
+            <Route
+              path="/user-profile"
+              element={
+                <RequireAuth>
+                  <UserProfile />
+                </RequireAuth>
+              }
+            />
+          ) && (
+            <Route
+              path="/user-management"
+              element={
+                <RequireAuth>
+                  <UserManagement />
+                </RequireAuth>
+              }
+            />
+          ) && (
+            <Route
+              path="/component-list"
+              element={
+                <RequireAuth>
+                  <ComponentListPreview />
+                </RequireAuth>
+              }
+            />
+          ) && (
+            <Route
+              path="/load"
+              element={
+                <RequireAuth>
+                  <ViewLoad />
+                </RequireAuth>
+              }
+            />
+          ) && (
+          <Route path="*" element={<Error_404 />} />
+        )}
+        {!authState.is_authenticated && (
+          <Route
+              path="/"
+              element={
+                <AlreadyAuthenticated>
+                  <Login />
+                </AlreadyAuthenticated>
+              }
+            />
+          ) && (
+          <Route path="*" element={<Login />} />
+        )}
       </Routes>
     </Router>
   );

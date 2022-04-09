@@ -68,7 +68,7 @@ export default function App() {
       <Routes>
         {authState.is_authenticated && (
             <Route
-              path="/dashboard"
+              path="/"
               element={
                 <RequireAuth>
                   <Dashboard />

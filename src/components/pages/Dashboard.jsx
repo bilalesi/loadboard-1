@@ -11,13 +11,12 @@ import {
   TableHeaders,
   TableRows
 } from "../../components";
+import { useAuthState } from "../../context/authContext";
 
 function Dashboard() {
-  /* useEffect(() => {
-    document.title = process.env.REACT_APP_SITE_TITLE + " - Dashboard"
-  }, []); */
-  //
-  const [siteTabTitle] = useState('Dashboard - Loadboard');
+  const { user } = useAuthState();
+  let userFullname = String(user.lastName).toUpperCase() + " " + `${String(user.firstName).charAt(0).toUpperCase()}${String(user.firstName).slice(1)}`;
+  const [siteTabTitle, setSiteTitle] = useState('Dashboard - Loadboard');
   //
   const [dashboardTable, setDashboardTableData] = useState({table:{},data:[{}],loading:true});
   const [activeBidLoadsTable, setactiveBidLoadsTableData] = useState({table:{},data:[{}],loading:true});
@@ -34,15 +33,13 @@ function Dashboard() {
       console.log('::updated context1::')
     }
   }, [dashboardTable.table]);
+
   useEffect(() => {
     activeBidLoadsTableContext.current = activeBidLoadsTable;
     return () => {
       console.log('::updated context2::')
     }
   }, [activeBidLoadsTable.table]);
-  
-
-  
 
   useEffect(() => {
     //
@@ -86,7 +83,6 @@ function Dashboard() {
       //--
       //request new data from server below
       //console.log('table',dashboardTable, DashboardTableContext.current);
-      debugger;
       socket.emit("table-update",DashboardTableContext.current);
       socket.emit("table-update",activeBidLoadsTableContext.current);
     };
@@ -102,7 +98,6 @@ function Dashboard() {
     //
     //
     const handleJoinChannel = (feed) => {
-      debugger;
       feed.map(function(table){
         switch (table.type){
           case "table":
@@ -137,9 +132,7 @@ function Dashboard() {
     }
   }, []);
 
-  //
-  //
-  //
+  
   return (
       <div className="Dashboard main-container">
         <Helmet defer={false}>
@@ -154,7 +147,7 @@ function Dashboard() {
                   <div className="flex-grow-1 mb-1 mb-md-0">
                     <h1 className="font-weight-light">Dashboard</h1>
                     <h2 className="h6 fw-medium fw-medium text-muted mb-0">
-                          Welcome <a className="fw-semibold" href="/user-profile">John Doe</a>, everything looks great.
+                          Welcome <a className="fw-semibold" href="/user-profile">{ userFullname }</a>, everything looks great.
                     </h2>
                   </div>
                 </div>

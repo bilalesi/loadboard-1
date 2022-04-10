@@ -14,7 +14,7 @@ function Navigation() {
           <hr></hr>
           <ul className="nav nav-pills flex-column mb-auto">
             <li className="nav-item">
-              <NavLink className="nav-link nav-main-link" to="/">
+              <NavLink className="nav-link nav-main-link" to="/dashboard">
                   <i className="fas fa-tachometer-alt bi me-2 nav-main-link-icon"></i>
                   <span className="nav-main-link-name">Dashboard</span>
               </NavLink>

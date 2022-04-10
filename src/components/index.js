@@ -26,3 +26,4 @@ export { default as ViewLoad } from "./pages/load";
 export { default as ComponentListPreview } from "./pages/componentList";
 //
 export { default as Error_404 } from "./pages/Error_404";
+export { default as Login } from "./pages/Login";

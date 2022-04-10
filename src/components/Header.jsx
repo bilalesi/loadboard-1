@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useAuthDispatch, useAuthState } from "../context/authContext";
 
 function Header(e) {
+  const authState = useAuthState();
   function toggleSidebar(e) {
     e.target.closest('main').classList.toggle('sidebar-mini');
     e.target.closest('main').querySelector('.siteBranding > .siteTitle').classList.toggle('hidden');
@@ -11,19 +13,34 @@ function Header(e) {
         currentEl.classList.toggle('hidden');
     }
   }
+  const _handleLogoutClick = () => {
+    // Logout using Microsoft passport api
+    // Set authenticated state to false in the HomePage
+    window.open("http://localhost:4000/auth/logout", "_self");
+  };
   return (
     <header id="page-header">
       <div className="content-header">
-        <div className="d-flex align-items-center">
-          <button type="button" className="btn btn-sm btn-alt-secondary me-2" data-toggle="layout" onClick={toggleSidebar}>
-            <i className="fa fa-fw fa-bars"></i>
-          </button>
-          {/*<button type="button" className="btn btn-sm btn-alt-secondary me-2 d-none d-lg-inline-block" data-toggle="layout" onClick={toggleSidebar}>
-            <i className="fa fa-fw fa-ellipsis-v"></i>
-          </button>*/}
-          <button type="button" className="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout" data-action="header_search_on">
-            <i className="fa fa-fw fa-search"></i>
-          </button>
+        <div className="d-flex align-items-center justify-content-between w-100">
+          <div className="row w-100">
+            <div className="col-sm">
+              <button type="button" className="btn btn-sm btn-alt-secondary me-2" data-toggle="layout" onClick={toggleSidebar}>
+                <i className="fa fa-fw fa-bars"></i>
+              </button>
+
+            </div>
+            {/*<button type="button" className="btn btn-sm btn-alt-secondary me-2 d-none d-lg-inline-block" data-toggle="layout" onClick={toggleSidebar}>
+              <i className="fa fa-fw fa-ellipsis-v"></i>
+            </button>*/}
+            {/* <button type="button" className="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout" data-action="header_search_on">
+              <i className="fa fa-fw fa-search"></i>
+            </button> */}
+            <div className="col-sm d-flex align-items-center justify-content-end">
+              { authState.is_authenticated &&
+                  <button type="button" className="btn btn-danger" onClick={_handleLogoutClick}>Logout</button>
+              }
+            </div>
+          </div>
         </div>
       </div>
     </header>

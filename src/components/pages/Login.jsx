@@ -18,6 +18,7 @@ export default function Login() {
           <meta name="description" content="Dashboard" />
         </Helmet>
         <div className="card p-5 align-center">
+          <span><span>Prod URL:</span><p>{process.env.REACT_APP_BACKEND_PROD_URL}</p></span>
             <span className="card-title"><h5>Sign in to the load board</h5><span className="card-subtitle mb-2 text-muted">American Specialized Load Board Application</span></span>
             <div className="card-body">
               <button

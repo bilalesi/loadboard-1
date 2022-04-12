@@ -5,7 +5,7 @@ import AuthProvider  from "./context/authContext";
 import App from "./app";
 import "./index.css";
 
-
+console.log('api ', process.env.REACT_APP_API_URL_ENV)
 ReactDOM.render(
   <AuthProvider>
     <SocketContext.Provider value={socket}>

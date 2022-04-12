@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
-import { useAuthDispatch, useAuthState } from "../context/authContext";
+import React  from "react";
+import { useAuthState } from "../context/authContext";
+import { API_URL } from "../constant";
+
 
 function Header(e) {
   const authState = useAuthState();
@@ -16,7 +18,8 @@ function Header(e) {
   const _handleLogoutClick = () => {
     // Logout using Microsoft passport api
     // Set authenticated state to false in the HomePage
-    window.open("http://localhost:4000/auth/logout", "_self");
+    console.log("Logout", API_URL);
+    window.open(`${API_URL}/api/auth/logout`, "_self");
   };
   return (
     <header id="page-header">

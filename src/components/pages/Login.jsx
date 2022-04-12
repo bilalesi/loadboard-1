@@ -1,5 +1,7 @@
 import React,{useState} from "react";
 import {Helmet} from "react-helmet";
+import { API_URL } from "../../constant";
+
 
 export default function Login() {
   const [siteTabTitle, setSiteTitle] = useState('Login - American Specialized Load Board');
@@ -8,8 +10,7 @@ export default function Login() {
     // Authenticate using via passport api in the backend
     // Open Microsoft login page
     // Upon successful login, a cookie session will be stored in the client
-    const callbackURL = process.env.REACT_APP_TARGET_ENV === 'development' ? `${process.env.REACT_APP_BACKEND_DEV_URL}` : `${process.env.REACT_APP_BACKEND_PROD_URL}`;
-    window.open(callbackURL + "/auth/microsoft", "_self");
+    window.open(`${API_URL}/api/auth/microsoft`, "_self");
   };
   return (
     <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 min-vw-100 text-center">
@@ -18,7 +19,7 @@ export default function Login() {
           <meta name="description" content="Dashboard" />
         </Helmet>
         <div className="card p-5 align-center">
-          <span><span>Prod URL:</span><p>{process.env.REACT_APP_BACKEND_PROD_URL}</p></span>
+          <span><span>Prod URL:</span><p>{API_URL}</p></span>
             <span className="card-title"><h5>Sign in to the load board</h5><span className="card-subtitle mb-2 text-muted">American Specialized Load Board Application</span></span>
             <div className="card-body">
               <button

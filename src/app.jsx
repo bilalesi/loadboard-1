@@ -69,6 +69,7 @@ export default function App() {
       )}
       <Routes>
           <Route path="/" element={ <AlreadyAuthenticated> <Login /> </AlreadyAuthenticated> } />
+          <Route path="/login" element={ <AlreadyAuthenticated> <Login /> </AlreadyAuthenticated> } />
           <Route path="/dashboard" element={ <RequireAuth> <Dashboard /> </RequireAuth> } />
           <Route path="/Integrations" element={ <RequireAuth> <Integrations /> </RequireAuth> } />
           <Route path="/user-profile" element={ <RequireAuth> <UserProfile /> </RequireAuth> } />

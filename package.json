@@ -28,6 +28,11 @@
     "socket.io-client": "^4.4.1",
     "web-vitals": "^2.1.4"
   },
+  "engines": {
+    "node": "14.19.0",
+    "yarn": "1.22.11",
+    "npm": "8.5.1"
+  },
   "proxy": "http://localhost:3001",
   "scripts": {
     "start": "react-app-rewired start",

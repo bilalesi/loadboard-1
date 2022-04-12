@@ -27,13 +27,12 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      let response = await fetch(`${API_URL}/api/auth/check`, {
+      let response = await fetch(`/api/auth/check`, {
         method: "GET",
         credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          // 'Access-Control-Allow-Origin': 'http://localhost:3000',
           "Access-Control-Allow-Credentials": true,
         },
       });
@@ -68,15 +67,79 @@ export default function App() {
         </React.Fragment>
       )}
       <Routes>
-          <Route path="/" element={ <AlreadyAuthenticated> <Login /> </AlreadyAuthenticated> } />
-          <Route path="/login" element={ <AlreadyAuthenticated> <Login /> </AlreadyAuthenticated> } />
-          <Route path="/dashboard" element={ <RequireAuth> <Dashboard /> </RequireAuth> } />
-          <Route path="/Integrations" element={ <RequireAuth> <Integrations /> </RequireAuth> } />
-          <Route path="/user-profile" element={ <RequireAuth> <UserProfile /> </RequireAuth> } />
-          <Route path="/user-management" element={ <RequireAuth> <UserManagement /> </RequireAuth> } />
-          <Route path="/component-list" element={ <RequireAuth> <ComponentListPreview /> </RequireAuth> } />
-          <Route path="/load" element={ <RequireAuth> <ViewLoad /> </RequireAuth> } />
-          <Route path="*" element={<Error_404 />} />
+        <Route
+          path="/"
+          element={
+            <AlreadyAuthenticated>
+              {" "}
+              <Login />{" "}
+            </AlreadyAuthenticated>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <AlreadyAuthenticated>
+              {" "}
+              <Login />{" "}
+            </AlreadyAuthenticated>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              {" "}
+              <Dashboard />{" "}
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/Integrations"
+          element={
+            <RequireAuth>
+              {" "}
+              <Integrations />{" "}
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/user-profile"
+          element={
+            <RequireAuth>
+              {" "}
+              <UserProfile />{" "}
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/user-management"
+          element={
+            <RequireAuth>
+              {" "}
+              <UserManagement />{" "}
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/component-list"
+          element={
+            <RequireAuth>
+              {" "}
+              <ComponentListPreview />{" "}
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/load"
+          element={
+            <RequireAuth>
+              {" "}
+              <ViewLoad />{" "}
+            </RequireAuth>
+          }
+        />
+        <Route path="*" element={<Error_404 />} />
       </Routes>
     </Router>
   );
